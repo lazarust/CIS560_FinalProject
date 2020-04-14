@@ -8,11 +8,20 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <DockPanel>
-            <DataGrid Name="CheckInGrid" DockPanel.Dock="Top">
-                <DataGrid.Columns>
-                    <DataGridCheckBoxColumn/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <StackPanel DockPanel.Dock="Top">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Title: "/>
+                    <TextBox Name="SearchTitle" Width="100" TextChanged="SearchTitle_TextChanged"/>
+                    <TextBlock Text="Creator: "/>
+                    <TextBox Name="SearchCreator" Width="100" TextChanged="SearchCreator_TextChanged"/>
+                </StackPanel>
+                <DataGrid Name="CheckInGrid" >
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+            
             <Button DockPanel.Dock="Bottom" Height="20" Width="200" VerticalAlignment="Bottom" Name="CheckInItems" Click="CheckInItems_Click">Check in Selected Items</Button>
         </DockPanel>
         

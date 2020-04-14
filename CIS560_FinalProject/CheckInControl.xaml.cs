@@ -39,5 +39,33 @@ namespace CIS560_FinalProject
                 
             }
         }
+
+        private void SearchTitle_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connect))
+            {
+                sqlConnection.Open();
+                ///Change this query
+                SqlDataAdapter sqlData = new SqlDataAdapter("Select * From Clubs.Club as cc WHERE cc.Name LIKE '%" + (sender as TextBox).Text + "%'", sqlConnection);
+                DataTable dt = new DataTable();
+                sqlData.Fill(dt);
+
+                CheckInGrid.ItemsSource = dt.DefaultView;
+            }
+        }
+
+        private void SearchCreator_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connect))
+            {
+                sqlConnection.Open();
+                ///Change this query
+                SqlDataAdapter sqlData = new SqlDataAdapter("Select * From Clubs.Club as cc WHERE cc.Name LIKE '%" + (sender as TextBox).Text + "%'", sqlConnection);
+                DataTable dt = new DataTable();
+                sqlData.Fill(dt);
+
+                CheckInGrid.ItemsSource = dt.DefaultView;
+            }
+        }
     }
 }

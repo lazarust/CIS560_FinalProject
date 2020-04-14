@@ -39,5 +39,19 @@ namespace CIS560_FinalProject
             screen.DataContext = userId;
             ParentControl?.ScreenSwap(screen);
         }
+
+        private void AccountName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connect))
+            {
+                sqlConnection.Open();
+                ///Change this query
+                SqlDataAdapter sqlData = new SqlDataAdapter("Select * From Clubs.Club as cc WHERE cc.Name LIKE '%" + (sender as TextBox).Text + "%'", sqlConnection);
+                DataTable dt = new DataTable();
+                sqlData.Fill(dt);
+
+                dv.ItemsSource = dt.DefaultView;
+            }
+        }
     }
 }
