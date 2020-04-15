@@ -28,6 +28,10 @@ namespace CIS560_FinalProject
             Container.Child = element;   
         }
 
-
+        private void ExittoReport_Click(object sender, RoutedEventArgs e)
+        {
+            var screen = new ReportQuerySelector();
+            ScreenSwap(screen);
+        }
     }
 }
