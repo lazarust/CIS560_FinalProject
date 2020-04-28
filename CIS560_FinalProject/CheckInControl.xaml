@@ -16,9 +16,6 @@
                     <TextBox Name="SearchCreator" Width="100" TextChanged="SearchCreator_TextChanged"/>
                 </StackPanel>
                 <DataGrid Name="CheckInGrid" >
-                    <DataGrid.Columns>
-                        <DataGridCheckBoxColumn/>
-                    </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
             

@@ -23,7 +23,7 @@ namespace CIS560_FinalProject
             {
                 sqlConnection.Open();
                 ///Change this query
-                SqlDataAdapter sqlData = new SqlDataAdapter("Select * From Clubs.Club", sqlConnection);
+                SqlDataAdapter sqlData = new SqlDataAdapter("Select * From CustomerAccount", sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);
 
@@ -34,8 +34,9 @@ namespace CIS560_FinalProject
         private void dv_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var ParentControl = this.FindAncestor<ParentControl>();
-            var userId = (sender as DataGrid).SelectedIndex;
+            var x = dv.SelectedItem;
             var screen = new ActionSelection();
+            var userId = (x as DataRowView)["CustomerId"];
             screen.DataContext = userId;
             ParentControl?.ScreenSwap(screen);
         }
@@ -46,7 +47,7 @@ namespace CIS560_FinalProject
             {
                 sqlConnection.Open();
                 ///Change this query
-                SqlDataAdapter sqlData = new SqlDataAdapter("Select * From Clubs.Club as cc WHERE cc.Name LIKE '%" + (sender as TextBox).Text + "%'", sqlConnection);
+                SqlDataAdapter sqlData = new SqlDataAdapter("Select * From CustomerAccount as cc WHERE cc.Name LIKE '%" + (sender as TextBox).Text + "%'", sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);
 

@@ -16,9 +16,9 @@ namespace CIS560_FinalProject
 
         private void CheckIn_Click(object sender, RoutedEventArgs e)
         {
-            var screen = new CheckInControl();
-            var parentControl = this.FindAncestor<ParentControl>();
+            var screen = new CheckInControl((int)DataContext);
             screen.DataContext = DataContext;
+            var parentControl = this.FindAncestor<ParentControl>();
             parentControl?.ScreenSwap(screen);
         }
 
