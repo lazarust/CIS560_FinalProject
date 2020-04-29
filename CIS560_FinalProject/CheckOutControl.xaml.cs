@@ -2,6 +2,8 @@
 using System.Windows.Controls;
 using System.Data.SqlClient;
 using System.Data;
+using System;
+using CIS560_FinalProject.ExtensionMethods;
 
 namespace CIS560_FinalProject
 {
@@ -18,12 +20,11 @@ namespace CIS560_FinalProject
         public CheckOutControl()
         {
             InitializeComponent();
-
+            string query = "Select i.ItemId,i.Title, i.PublishDate, c.Name From Items as i INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId WHERE i.InStock = 1";
             using (SqlConnection sqlConnection = new SqlConnection(connect))
             {
                 sqlConnection.Open();
-                ///Change this query
-                SqlDataAdapter sqlData = new SqlDataAdapter("Select * From Clubs.Club", sqlConnection);
+                SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);
 
@@ -37,8 +38,24 @@ namespace CIS560_FinalProject
             {
                 sqlConnection.Open();
                 ///Add the query here to update and insert the rows
+                var selectedItems = CheckOutGrid.SelectedItems;
+                foreach(DataRowView data in selectedItems)
+                {
+                    string query = "UPDATE Items Set InStock = 0 WHERE ItemId = " + data["ItemId"];
+                    SqlCommand update = new SqlCommand(query, sqlConnection);
+                    update.ExecuteNonQuery();
 
+                    query = "INSERT INTO Transactions([Return], InStock, CustomerId, Date, CheckedOut, ItemId, Columns) VALUES (0, 0, " + (int)DataContext + ", Convert(datetime," + DateTime.Now.ToString("yyyy-dd-MM") + "), Convert(datetime," + DateTime.Now.ToString("yyyy-dd-MM") + ")," + data["ItemId"] + ", 5)";
+                    update = new SqlCommand(query, sqlConnection);
+                    update.ExecuteNonQuery();
+                }
+
+                sqlConnection.Close();
+               
             }
+            var screen = new PopulateUsers();
+            var parentControl = this.FindAncestor<ParentControl>();
+            parentControl?.ScreenSwap(screen);
         }
 
         private void SearchTitle_TextChanged(object sender, TextChangedEventArgs e)
@@ -47,7 +64,7 @@ namespace CIS560_FinalProject
             {
                 sqlConnection.Open();
                 ///Change this query
-                SqlDataAdapter sqlData = new SqlDataAdapter("Select * From Clubs.Club as cc WHERE cc.Name LIKE '%" + (sender as TextBox).Text + "%'", sqlConnection);
+                SqlDataAdapter sqlData = new SqlDataAdapter("Select i.ItemId, i.Title, i.PublishDate, c.Name From Items as i INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId  WHERE i.InStock = 1 and i.Title LIKE '%" + (sender as TextBox).Text + "%'", sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);
 
@@ -61,7 +78,7 @@ namespace CIS560_FinalProject
             {
                 sqlConnection.Open();
                 ///Change this query
-                SqlDataAdapter sqlData = new SqlDataAdapter("Select * From Clubs.Club as cc WHERE cc.Name LIKE '%" + (sender as TextBox).Text + "%'", sqlConnection);
+                SqlDataAdapter sqlData = new SqlDataAdapter("Select i.ItemId, i.Title, i.PublishDate, c.Name From Items as i INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId  WHERE i.InStock = 1 and c.Name LIKE '%" + (sender as TextBox).Text + "%'", sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);
 

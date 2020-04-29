@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace CIS560_FinalProject
 {
@@ -21,21 +22,12 @@ namespace CIS560_FinalProject
             {
                 sqlConnection.Open();
                 ///Change this query to get the total checkouts from every month
-                SqlDataAdapter sqlData = new SqlDataAdapter("Select * From Clubs.Club", sqlConnection);
+                SqlDataAdapter sqlData = new SqlDataAdapter("SELECT FORMAT(DATE, 'MMMM') as Month, COUNT(*) as TransactionCount FROM Transactions Group By MONTH(Date), FORMAT(DATE, 'MMMM') Order By Month(DATE)", sqlConnection);
+                DataTable dt = new DataTable();
+                sqlData.Fill(dt);
 
-                //Fill these values with what's returned from the query
-                JanuaryTotals.Text = "";
-                FebruaryTotals.Text = "";
-                MarchTotals.Text = "";
-                AprilTotals.Text = "";
-                MayTotals.Text = "";
-                JuneTotals.Text = "";
-                JulyTotals.Text = "";
-                AugustTotals.Text = "";
-                SeptemberTotals.Text = "";
-                OctoberTotals.Text = "";
-                NevemberTotals.Text = "";
-                DecemberTotals.Text = "";
+                Trans.ItemsSource = dt.DefaultView;
+
             }
         }
     }

@@ -23,7 +23,7 @@ namespace CIS560_FinalProject
             {
                 sqlConnection.Open();
                 ///Change this query
-                SqlDataAdapter sqlData = new SqlDataAdapter("Select * From CustomerAccount", sqlConnection);
+                SqlDataAdapter sqlData = new SqlDataAdapter("Select CustomerId, Name From CustomerAccount", sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);
 

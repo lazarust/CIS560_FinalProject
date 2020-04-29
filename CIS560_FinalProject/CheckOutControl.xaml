@@ -17,9 +17,7 @@
                 </StackPanel>
                 
                 <DataGrid Name="CheckOutGrid">
-                    <DataGrid.Columns>
-                        <DataGridCheckBoxColumn/>
-                    </DataGrid.Columns>
+                
                 </DataGrid>
             </StackPanel>            
             <Button DockPanel.Dock="Bottom" Height="20" Width="200" VerticalAlignment="Bottom" Name="CheckOutItems" Click="CheckOutItems_Click">Check Out Selected Items</Button>

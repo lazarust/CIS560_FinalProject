@@ -8,8 +8,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
         <TextBlock Text="Top Items of the month: "/>
-        <ListBox Name="TopItems">
+        <DataGrid IsReadOnly="True" Name="TopItems">
             
-        </ListBox>
+        </DataGrid>
     </StackPanel>
 </UserControl>

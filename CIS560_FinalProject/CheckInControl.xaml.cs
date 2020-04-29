@@ -20,11 +20,10 @@ namespace CIS560_FinalProject
         public CheckInControl(int selection)
         {
             InitializeComponent();
-            string query = "Select * From Transactions as t INNER JOIN Items as i on i.ItemId = t.ItemId WHERE i.InStock = 0 and [Return] = 0 and t.CustomerId = " + selection;
+            string query = "Select t.TransId, i.ItemId, i.Title, t.CustomerId, [Return], c.Name as CreatorName From Transactions as t INNER JOIN Items as i on i.ItemId = t.ItemId INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId WHERE i.InStock = 0 and [Return] = 0 and t.TransId in (SELECT max(TransId) FROM Transactions Group By ItemId) and t.CustomerId = " + selection;
             using (SqlConnection sqlConnection = new SqlConnection(connect))
             {
                 sqlConnection.Open();
-                ///If we switch to having an id from the items table in the transactions table this will need to be changed
                 SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);
@@ -62,8 +61,7 @@ namespace CIS560_FinalProject
             using (SqlConnection sqlConnection = new SqlConnection(connect))
             {
                 sqlConnection.Open();
-                ///Change this query when we switch to using an id instead of title
-                string query = "Select * From Transactions WHERE [Return] = 0 and CustomerId = " + (int)DataContext + " and Title LIKE '%" + (sender as TextBox).Text + "%'";
+                string query = "Select t.TransId, i.ItemId, i.Title, t.CustomerId, [Return], c.Name as CreatorName From Transactions as t INNER JOIN Items as i on i.ItemId = t.ItemId INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId WHERE i.InStock = 0 and [Return] = 0 and t.TransId in (SELECT max(TransId) FROM Transactions Group By ItemId) and t.CustomerId = " + (int)DataContext + " and i.Title LIKE '%" + (sender as TextBox).Text + "%'";
                 SqlDataAdapter sqlData = new SqlDataAdapter(query , sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);
@@ -77,8 +75,7 @@ namespace CIS560_FinalProject
             using (SqlConnection sqlConnection = new SqlConnection(connect))
             {
                 sqlConnection.Open();
-                ///Change this query when we switch to using an id instead of title
-                string query = "Select * From Transactions WHERE [Return] = 0 and CustomerId = " + (int)DataContext + "and Title LIKE '%" + (sender as TextBox).Text + "%'";
+                string query = "Select t.TransId, i.ItemId, i.Title, t.CustomerId, [Return], c.Name as CreatorName From Transactions as t INNER JOIN Items as i on i.ItemId = t.ItemId INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId WHERE i.InStock = 0 and [Return] = 0 and t.TransId in (SELECT max(TransId) FROM Transactions Group By ItemId) and t.CustomerId = " + (int)DataContext + "and c.Name LIKE '%" + (sender as TextBox).Text + "%'";
                 SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);

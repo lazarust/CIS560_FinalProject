@@ -14,8 +14,8 @@
             </StackPanel>
             <DataGrid Name="dv" IsReadOnly="True" SelectionChanged="dv_SelectionChanged"/>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Amount Currently Held: "/>
-                <TextBlock Name="AmountHeld" Width="10"/>
+                <TextBlock Text="Item Checked out Most: "/>
+                <TextBlock Name="AmountHeld"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Amount Currently Checked out: "/>
