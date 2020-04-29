@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CIS560_FinalProject.CheckInControl"
+﻿<UserControl x:Class="CIS560_FinalProject.HoldControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,12 +15,12 @@
                     <TextBlock Text="Creator: "/>
                     <TextBox Name="SearchCreator" Width="100" TextChanged="SearchCreator_TextChanged"/>
                 </StackPanel>
-                <DataGrid Name="CheckInGrid" IsReadOnly="True">
+
+                <DataGrid Name="HoldGrid" IsReadOnly="True" SelectionMode="Single">
+
                 </DataGrid>
             </StackPanel>
-            
-            <Button DockPanel.Dock="Bottom" Height="20" Width="200" VerticalAlignment="Bottom" Name="CheckInItems" Click="CheckInItems_Click">Check in Selected Items</Button>
+            <Button DockPanel.Dock="Bottom" Height="20" Width="200" VerticalAlignment="Bottom" Name="HoldItems" Click="HoldItems_Click" >Hold Selected Items</Button>
         </DockPanel>
-        
     </Grid>
 </UserControl>

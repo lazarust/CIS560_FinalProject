@@ -40,7 +40,7 @@ namespace CIS560_FinalProject
                 var selectedItems = CheckInGrid.SelectedItems;
                 foreach (DataRowView dataRowView in selectedItems)
                 {
-                    string query = "INSERT INTO Transactions([Return], InStock, CustomerId, Date, ItemId, Columns) VALUES (1, 1, " + dataRowView["CustomerId"] + ", Convert(datetime," + DateTime.Now.ToString("yyyy-dd-MM") + "), " + dataRowView["ItemId"] + ", 5)";
+                    string query = "INSERT INTO Transactions([Return], CustomerId, Date, ItemId) VALUES (1, " + dataRowView["CustomerId"] + ", Convert(datetime," + DateTime.Now.ToString("yyyy-dd-MM") + "), " + dataRowView["ItemId"] + ")";
                     SqlCommand update = new SqlCommand(query, sqlConnection);
                     update.ExecuteNonQuery();
 

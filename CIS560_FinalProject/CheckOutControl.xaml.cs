@@ -17,10 +17,10 @@ namespace CIS560_FinalProject
         /// Change this string to the db needed 
         /// </summary>
         string connect = "Data Source=mssql.cs.ksu.edu;Initial Catalog=USERNAME;User ID=USERNAME;Password=PASSWORD";
-        public CheckOutControl()
+        public CheckOutControl(int userId)
         {
             InitializeComponent();
-            string query = "Select i.ItemId,i.Title, i.PublishDate, c.Name From Items as i INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId WHERE i.InStock = 1";
+            string query = "Select i.ItemId,i.Title, i.PublishDate, c.Name, i.HeldAccount From Items as i INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId WHERE i.InStock = 1 and(i.HeldAccount is NULL or i.HeldAccount = " + userId + ")";
             using (SqlConnection sqlConnection = new SqlConnection(connect))
             {
                 sqlConnection.Open();
@@ -41,12 +41,21 @@ namespace CIS560_FinalProject
                 var selectedItems = CheckOutGrid.SelectedItems;
                 foreach(DataRowView data in selectedItems)
                 {
-                    string query = "UPDATE Items Set InStock = 0 WHERE ItemId = " + data["ItemId"];
+                    string query = "";
+                    
+                    string query2 = "";
+                    if (data["HeldAccount"].ToString() != null)
+                    {
+                        query = "UPDATE Items Set InStock = 0, HeldAccount = NULL WHERE ItemId = " + data["ItemId"];
+                        query2 = "INSERT INTO Transactions([Return], CustomerId, Date, CheckedOut, ItemId, WasHold) VALUES (0, " + (int)DataContext + ", Convert(datetime," + DateTime.Now.ToString("yyyy-dd-MM") + "), Convert(datetime," + DateTime.Now.ToString("yyyy-dd-MM") + ")," + data["ItemId"] + ", 1)";
+                    } else
+                    {
+                        query = "UPDATE Items Set InStock = 0 WHERE ItemId = " + data["ItemId"];
+                        query2 = "INSERT INTO Transactions([Return], CustomerId, Date, CheckedOut, ItemId) VALUES (0, " + (int)DataContext + ", Convert(datetime," + DateTime.Now.ToString("yyyy-dd-MM") + "), Convert(datetime," + DateTime.Now.ToString("yyyy-dd-MM") + ")," + data["ItemId"] + ")";
+                    }
                     SqlCommand update = new SqlCommand(query, sqlConnection);
                     update.ExecuteNonQuery();
-
-                    query = "INSERT INTO Transactions([Return], InStock, CustomerId, Date, CheckedOut, ItemId, Columns) VALUES (0, 0, " + (int)DataContext + ", Convert(datetime," + DateTime.Now.ToString("yyyy-dd-MM") + "), Convert(datetime," + DateTime.Now.ToString("yyyy-dd-MM") + ")," + data["ItemId"] + ", 5)";
-                    update = new SqlCommand(query, sqlConnection);
+                    update = new SqlCommand(query2, sqlConnection);
                     update.ExecuteNonQuery();
                 }
 
@@ -64,7 +73,7 @@ namespace CIS560_FinalProject
             {
                 sqlConnection.Open();
                 ///Change this query
-                SqlDataAdapter sqlData = new SqlDataAdapter("Select i.ItemId, i.Title, i.PublishDate, c.Name From Items as i INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId  WHERE i.InStock = 1 and i.Title LIKE '%" + (sender as TextBox).Text + "%'", sqlConnection);
+                SqlDataAdapter sqlData = new SqlDataAdapter("Select i.ItemId, i.Title, i.PublishDate, c.Name From Items as i INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId  WHERE i.InStock = 1 and i.Title LIKE '%" + (sender as TextBox).Text + "%' and(i.HeldAccount is NULL or i.HeldAccount = " + (int)DataContext + ")", sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);
 
@@ -78,7 +87,7 @@ namespace CIS560_FinalProject
             {
                 sqlConnection.Open();
                 ///Change this query
-                SqlDataAdapter sqlData = new SqlDataAdapter("Select i.ItemId, i.Title, i.PublishDate, c.Name From Items as i INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId  WHERE i.InStock = 1 and c.Name LIKE '%" + (sender as TextBox).Text + "%'", sqlConnection);
+                SqlDataAdapter sqlData = new SqlDataAdapter("Select i.ItemId, i.Title, i.PublishDate, c.Name From Items as i INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId  WHERE i.InStock = 1 and c.Name LIKE '%" + (sender as TextBox).Text + "%' and(i.HeldAccount is NULL or i.HeldAccount = " + (int)DataContext + ")", sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);
 

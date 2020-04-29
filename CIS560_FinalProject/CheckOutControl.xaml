@@ -16,7 +16,7 @@
                     <TextBox Name="SearchCreator" Width="100" TextChanged="SearchCreator_TextChanged"/>
                 </StackPanel>
                 
-                <DataGrid Name="CheckOutGrid">
+                <DataGrid Name="CheckOutGrid" IsReadOnly="True">
                 
                 </DataGrid>
             </StackPanel>            

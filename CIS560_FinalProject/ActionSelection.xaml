@@ -10,8 +10,10 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Button Name="CheckIn" Click="CheckIn_Click">Check In Items</Button>
         <Button Name="CheckOut" Grid.Column="1" Click="CheckOut_Click">Check Out Items</Button>
+        <Button Name="HoldItems" Grid.Column="2" Click="HoldItems_Click">Hold Items</Button>
     </Grid>
 </UserControl>

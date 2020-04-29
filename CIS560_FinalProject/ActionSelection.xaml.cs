@@ -24,7 +24,15 @@ namespace CIS560_FinalProject
 
         private void CheckOut_Click(object sender, RoutedEventArgs e)
         {
-            var screen = new CheckOutControl();
+            var screen = new CheckOutControl((int)DataContext);
+            var parentControl = this.FindAncestor<ParentControl>();
+            screen.DataContext = DataContext;
+            parentControl?.ScreenSwap(screen);
+        }
+
+        private void HoldItems_Click(object sender, RoutedEventArgs e)
+        {
+            var screen = new HoldControl((int)DataContext);
             var parentControl = this.FindAncestor<ParentControl>();
             screen.DataContext = DataContext;
             parentControl?.ScreenSwap(screen);
