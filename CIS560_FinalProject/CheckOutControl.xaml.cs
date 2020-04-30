@@ -46,12 +46,19 @@ namespace CIS560_FinalProject
                     string query2 = "";
                     if (data["HeldAccount"].ToString() != null)
                     {
+                        string finder = "SELECT TOP 1[DATE] FROM Transactions Where ItemId =" + data["ItemId"] + "Order By TransId Desc";
+                        SqlCommand cmd = new SqlCommand(finder, sqlConnection);
+                        var originaldateTime = (System.DateTimeOffset)cmd.ExecuteScalar();
+                        var now = DateTime.Now;
+                        var newTime = now.Subtract(originaldateTime.DateTime);
+
+
                         query = "UPDATE Items Set InStock = 0, HeldAccount = NULL WHERE ItemId = " + data["ItemId"];
-                        query2 = "INSERT INTO Transactions([Return], CustomerId, Date, CheckedOut, ItemId, WasHold) VALUES (0, " + (int)DataContext + ", Convert(datetime," + DateTime.Now.ToString("yyyy-dd-MM") + "), Convert(datetime," + DateTime.Now.ToString("yyyy-dd-MM") + ")," + data["ItemId"] + ", 1)";
+                        query2 = "INSERT INTO Transactions([Return], CustomerId, Date, CheckedOut, ItemId, WasHold, DateDif) VALUES (0, " + (int)DataContext + ", Convert(datetime,'" + now + "'), Convert(datetime,'" + now + "')," + data["ItemId"] + ", 1, " + newTime.Days +")";
                     } else
                     {
                         query = "UPDATE Items Set InStock = 0 WHERE ItemId = " + data["ItemId"];
-                        query2 = "INSERT INTO Transactions([Return], CustomerId, Date, CheckedOut, ItemId) VALUES (0, " + (int)DataContext + ", Convert(datetime," + DateTime.Now.ToString("yyyy-dd-MM") + "), Convert(datetime," + DateTime.Now.ToString("yyyy-dd-MM") + ")," + data["ItemId"] + ")";
+                        query2 = "INSERT INTO Transactions([Return], CustomerId, Date, CheckedOut, ItemId) VALUES (0, " + (int)DataContext + ", Convert(datetime,'" + DateTime.Now + "'), Convert(datetime,'" + DateTime.Now + "')," + data["ItemId"] + ")";
                     }
                     SqlCommand update = new SqlCommand(query, sqlConnection);
                     update.ExecuteNonQuery();

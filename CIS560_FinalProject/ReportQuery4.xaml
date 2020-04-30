@@ -7,9 +7,56 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
-        <TextBlock Text="Transactions Per Month (If the month is not shown there were zero transactions: "/>
-        <DataGrid IsReadOnly="True" Name="Trans">
-
-        </DataGrid>
+        <TextBlock Text="Transactions Per Month: "/>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="January Checkout Totals: "/>
+                <TextBlock Name="JanuaryTotals" Text="0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="February Checkout Totals: "/>
+                <TextBlock Name="FebruaryTotals"  Text="0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="March Checkout Totals: "/>
+                <TextBlock Name="MarchTotals"  Text="0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="April Checkout Totals: "/>
+                <TextBlock Name="AprilTotals"  Text="0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="May Checkout Totals: "/>
+                <TextBlock Name="MayTotals"  Text="0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="June Checkout Totals: "/>
+                <TextBlock Name="JuneTotals"  Text="0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="July Checkout Totals: "/>
+                <TextBlock Name="JulyTotals"  Text="0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="August Checkout Totals: "/>
+                <TextBlock Name="AugustTotals"  Text="0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="September Checkout Totals: "/>
+                <TextBlock Name="SeptemberTotals"  Text="0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="October Checkout Totals: "/>
+                <TextBlock Name="OctoberTotals"  Text="0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="November Checkout Totals: "/>
+                <TextBlock Name="NovemberTotals"  Text="0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="December Checkout Totals: "/>
+                <TextBlock Name="DecemberTotals"  Text="0"/>
+            </StackPanel>
+        </StackPanel>
     </StackPanel>
 </UserControl>

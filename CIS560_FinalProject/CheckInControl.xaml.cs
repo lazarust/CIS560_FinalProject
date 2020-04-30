@@ -20,7 +20,7 @@ namespace CIS560_FinalProject
         public CheckInControl(int selection)
         {
             InitializeComponent();
-            string query = "Select t.TransId, i.ItemId, i.Title, t.CustomerId, [Return], c.Name as CreatorName From Transactions as t INNER JOIN Items as i on i.ItemId = t.ItemId INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId WHERE i.InStock = 0 and [Return] = 0 and t.TransId in (SELECT max(TransId) FROM Transactions Group By ItemId) and t.CustomerId = " + selection;
+            string query = "Select t.TransId, i.ItemId, i.Title, t.CustomerId, [Return], c.Name as CreatorName From Transactions as t INNER JOIN Items as i on i.ItemId = t.ItemId INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId WHERE i.InStock = 0 and t.TransId in (SELECT max(TransId) FROM Transactions Group By ItemId) and t.CustomerId = " + selection;
             using (SqlConnection sqlConnection = new SqlConnection(connect))
             {
                 sqlConnection.Open();
@@ -40,7 +40,7 @@ namespace CIS560_FinalProject
                 var selectedItems = CheckInGrid.SelectedItems;
                 foreach (DataRowView dataRowView in selectedItems)
                 {
-                    string query = "INSERT INTO Transactions([Return], CustomerId, Date, ItemId) VALUES (1, " + dataRowView["CustomerId"] + ", Convert(datetime," + DateTime.Now.ToString("yyyy-dd-MM") + "), " + dataRowView["ItemId"] + ")";
+                    string query = "INSERT INTO Transactions([Return], CustomerId, Date, ItemId) VALUES (1, " + dataRowView["CustomerId"] + ", Convert(datetime,'" + DateTime.Now + "'), " + dataRowView["ItemId"] + ")";
                     SqlCommand update = new SqlCommand(query, sqlConnection);
                     update.ExecuteNonQuery();
 

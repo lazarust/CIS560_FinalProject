@@ -22,41 +22,11 @@ namespace CIS560_FinalProject
             {
                 sqlConnection.Open();
                 ///Change this query
-                SqlDataAdapter sqlData = new SqlDataAdapter("Select * From Clubs.Club", sqlConnection);
+                SqlDataAdapter sqlData = new SqlDataAdapter("Select i.ItemId, i.Title, MAX(t.DateDif) as MaxWaitDays From Items as i Inner Join Transactions as t on i.ItemId = t.ItemId Group by i.ItemId, i.Title Having MAX(t.DateDif) is not null Order By MAX(t.DateDif) DESC", sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);
 
                 dv.ItemsSource = dt.DefaultView;
-            }
-        }
-
-        private void ItemName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            using (SqlConnection sqlConnection = new SqlConnection(connect))
-            {
-                sqlConnection.Open();
-                ///Change this query
-                SqlDataAdapter sqlData = new SqlDataAdapter("Select * From Clubs.Club as cc WHERE cc.Name LIKE '%" + (sender as TextBox).Text + "%'", sqlConnection);
-                DataTable dt = new DataTable();
-                sqlData.Fill(dt);
-
-                dv.ItemsSource = dt.DefaultView;
-            }
-        }
-
-        private void dv_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var item = (sender as DataGrid).SelectedIndex;
-            using (SqlConnection sqlConnection = new SqlConnection(connect))
-            {
-                sqlConnection.Open();
-                ///Change this query
-                SqlDataAdapter sqlData = new SqlDataAdapter("Select * From Clubs.Club as cc WHERE cc.ClubId LIKE '%" + item + "%'", sqlConnection);
-
-                //Fill these text values with amount returned from query
-                AccountMost.Text = "";
-                AmountMonth.Text = "";
-                AmountYear.Text = "";
             }
         }
     }

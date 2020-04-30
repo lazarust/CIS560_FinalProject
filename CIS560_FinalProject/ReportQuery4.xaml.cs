@@ -22,11 +22,67 @@ namespace CIS560_FinalProject
             {
                 sqlConnection.Open();
                 ///Change this query to get the total checkouts from every month
-                SqlDataAdapter sqlData = new SqlDataAdapter("SELECT FORMAT(DATE, 'MMMM') as Month, COUNT(*) as TransactionCount FROM Transactions Group By MONTH(Date), FORMAT(DATE, 'MMMM') Order By Month(DATE)", sqlConnection);
+                SqlCommand cmd = new SqlCommand("SELECT FORMAT(DATE, 'MMMM') as Month, COUNT(*) as TransactionCount FROM Transactions Group By MONTH(Date), FORMAT(DATE, 'MMMM') Order By Month(DATE)", sqlConnection);
                 DataTable dt = new DataTable();
-                sqlData.Fill(dt);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
 
-                Trans.ItemsSource = dt.DefaultView;
+                da.Fill(dt);
+                foreach (DataRow x in dt.Rows)
+                {
+                    var count = x["TransactionCount"].ToString();
+                    switch (x["Month"].ToString())
+                    {
+                        case "January":
+                            JanuaryTotals.Text = count;
+                            break;
+
+                        case "Febraury":
+                            FebruaryTotals.Text = count;
+                            break;
+
+                        case "March":
+                            MarchTotals.Text = count;
+                            break;
+
+                        case "April":
+                            AprilTotals.Text = count;
+                            break;
+
+                        case "May":
+                            MayTotals.Text = count;
+                            break;
+
+                        case "June":
+                            JuneTotals.Text = count;
+                            break;
+
+                        case "July":
+                            JulyTotals.Text = count;
+                            break;
+
+                        case "August":
+                            AugustTotals.Text = count;
+                            break;
+
+                        case "September":
+                            SeptemberTotals.Text = count;
+                            break;
+
+                        case "October":
+                            OctoberTotals.Text = count;
+                            break;
+
+                        case "November":
+                            NovemberTotals.Text = count;
+                            break;
+
+                        case "December":
+                        default:
+                            DecemberTotals.Text = count;
+                            break;
+
+                    }
+                }
 
             }
         }

@@ -8,23 +8,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Name: "/>
-                <TextBox Name="ItemName" Width="100" TextChanged="ItemName_TextChanged"/>
-            </StackPanel>
-            <DataGrid Name="dv" IsReadOnly="True" SelectionChanged="dv_SelectionChanged"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Checked out by this Account most: "/>
-                <TextBlock Name="AccountMost" Width="10"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Checked out Total this month: "/>
-                <TextBlock Name="AmountMonth"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Checked out Total this year: "/>
-                <TextBlock Name="AmountYear"/>
-            </StackPanel>
+            <TextBlock Text="Longest Wait Period for Item: "/>
+            <DataGrid Name="dv" IsReadOnly="True"/>
         </StackPanel>
     </Grid>
 </UserControl>
