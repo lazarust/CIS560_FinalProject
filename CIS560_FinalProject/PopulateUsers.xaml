@@ -6,13 +6,13 @@
              xmlns:local="clr-namespace:CIS560_FinalProject"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
-    <Grid>
-        <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Name: "/>
-                <TextBox Name="AccountName" Width="100" TextChanged="AccountName_TextChanged"/>
-            </StackPanel>
-            <DataGrid Name="dv" IsReadOnly="True" SelectionChanged="dv_SelectionChanged"/>
+
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Name: "/>
+            <TextBox Name="AccountName" Width="100" TextChanged="AccountName_TextChanged"/>
         </StackPanel>
-    </Grid>
+        <DataGrid Name="dv" IsReadOnly="True" SelectionChanged="dv_SelectionChanged"/>
+    </StackPanel>
+
 </UserControl>

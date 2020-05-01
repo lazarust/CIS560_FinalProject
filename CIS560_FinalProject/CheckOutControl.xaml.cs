@@ -44,7 +44,7 @@ namespace CIS560_FinalProject
                     string query = "";
                     
                     string query2 = "";
-                    if (data["HeldAccount"].ToString() != null)
+                    if (data["HeldAccount"].ToString() != null && data["HeldAccount"].ToString() != "")
                     {
                         string finder = "SELECT TOP 1[DATE] FROM Transactions Where ItemId =" + data["ItemId"] + "Order By TransId Desc";
                         SqlCommand cmd = new SqlCommand(finder, sqlConnection);
