@@ -21,7 +21,6 @@ namespace CIS560_FinalProject
             using (SqlConnection sqlConnection = new SqlConnection(connect))
             {
                 sqlConnection.Open();
-                ///Change this query to get the total checkouts from every month
                 SqlCommand cmd = new SqlCommand("SELECT FORMAT(DATE, 'MMMM') as Month, COUNT(*) as TransactionCount FROM Transactions Group By MONTH(Date), FORMAT(DATE, 'MMMM') Order By Month(DATE)", sqlConnection);
                 DataTable dt = new DataTable();
                 SqlDataAdapter da = new SqlDataAdapter(cmd);

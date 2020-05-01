@@ -79,7 +79,6 @@ namespace CIS560_FinalProject
             using (SqlConnection sqlConnection = new SqlConnection(connect))
             {
                 sqlConnection.Open();
-                ///Change this query
                 SqlDataAdapter sqlData = new SqlDataAdapter("Select i.ItemId, i.Title, i.PublishDate, c.Name From Items as i INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId  WHERE i.InStock = 1 and i.Title LIKE '%" + (sender as TextBox).Text + "%' and(i.HeldAccount is NULL or i.HeldAccount = " + (int)DataContext + ")", sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);
@@ -93,7 +92,6 @@ namespace CIS560_FinalProject
             using (SqlConnection sqlConnection = new SqlConnection(connect))
             {
                 sqlConnection.Open();
-                ///Change this query
                 SqlDataAdapter sqlData = new SqlDataAdapter("Select i.ItemId, i.Title, i.PublishDate, c.Name From Items as i INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId  WHERE i.InStock = 1 and c.Name LIKE '%" + (sender as TextBox).Text + "%' and(i.HeldAccount is NULL or i.HeldAccount = " + (int)DataContext + ")", sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);

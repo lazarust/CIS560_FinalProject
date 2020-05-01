@@ -21,7 +21,6 @@ namespace CIS560_FinalProject
             using (SqlConnection sqlConnection = new SqlConnection(connect))
             {
                 sqlConnection.Open();
-                ///Change this query
                 SqlDataAdapter sqlData = new SqlDataAdapter("Select i.ItemId, i.Title, MAX(t.DateDif) as MaxWaitDays From Items as i Inner Join Transactions as t on i.ItemId = t.ItemId Group by i.ItemId, i.Title Having MAX(t.DateDif) is not null Order By MAX(t.DateDif) DESC", sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);

@@ -42,7 +42,6 @@ namespace CIS560_FinalProject
             using (SqlConnection sqlConnection = new SqlConnection(connect))
             {
                 sqlConnection.Open();
-                ///Change this query
                 SqlDataAdapter sqlData = new SqlDataAdapter("Select i.ItemId, i.Title, i.PublishDate, c.Name From Items as i INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId  WHERE i.InStock = 0 and i.Title LIKE '%" + (sender as TextBox).Text + "%' and(i.HeldAccount is NULL)", sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);
@@ -56,7 +55,6 @@ namespace CIS560_FinalProject
             using (SqlConnection sqlConnection = new SqlConnection(connect))
             {
                 sqlConnection.Open();
-                ///Change this query
                 SqlDataAdapter sqlData = new SqlDataAdapter("Select i.ItemId, i.Title, i.PublishDate, c.Name From Items as i INNER JOIN Creator as c on c.CreatorWorkId = i.CreatorWorkId  WHERE i.InStock = 0 and c.Name LIKE '%" + (sender as TextBox).Text + "%' and(i.HeldAccount is NULL)", sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);
@@ -70,7 +68,6 @@ namespace CIS560_FinalProject
             using (SqlConnection sqlConnection = new SqlConnection(connect))
             {
                 sqlConnection.Open();
-                ///Add the query here to update and insert the rows
                 var selectedItems = HoldGrid.SelectedItems;
                 foreach (DataRowView data in selectedItems)
                 {

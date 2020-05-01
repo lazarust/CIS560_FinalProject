@@ -21,7 +21,6 @@ namespace CIS560_FinalProject
             using (SqlConnection sqlConnection = new SqlConnection(connect))
             {
                 sqlConnection.Open();
-                ///Change this query
                 SqlDataAdapter sqlData = new SqlDataAdapter("Select CustomerId, Name From CustomerAccount", sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);
@@ -35,7 +34,6 @@ namespace CIS560_FinalProject
             using (SqlConnection sqlConnection = new SqlConnection(connect))
             {
                 sqlConnection.Open();
-                ///Change this query
                 SqlDataAdapter sqlData = new SqlDataAdapter("Select * From CustomerAccount as cc WHERE cc.Name LIKE '%" + (sender as TextBox).Text + "%'", sqlConnection);
                 DataTable dt = new DataTable();
                 sqlData.Fill(dt);
@@ -54,7 +52,6 @@ namespace CIS560_FinalProject
             using (SqlConnection sqlConnection = new SqlConnection(connect))
             {
                 sqlConnection.Open();
-                ///Change this query
                 SqlDataAdapter sqlData = new SqlDataAdapter(query, sqlConnection);
 
                 DataTable dt = new DataTable();
